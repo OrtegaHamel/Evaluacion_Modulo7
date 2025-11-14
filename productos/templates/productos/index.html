@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Página de Inicio</title>
+</head>
+<body>
+    <h1>Bienvenido a la Gestión de Productos</h1>
+    <p>Selecciona una opción del menú:</p>
+    <ul>
+        <li><a href="{% url 'lista_productos' %}">Lista de Productos</a></li>
+        <li><a href="{% url 'lista_categorias' %}">Lista de Categorías</a></li>
+        <li><a href="{% url 'lista_etiquetas' %}">Lista de Etiquetas</a></li>
+    </ul>
+</body>
+</html>
