@@ -1,0 +1,351 @@
+{% extends 'base.html' %}
+{% block title %}Consultas ORM{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Consultas ORM de Django</h1>
+
+    <!-- Consulta 1: Todos los productos -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5>Todos los productos</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Categoría</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in todos_productos %}
+                        <tr>
+                            <td>{{ producto.id }}</td>
+                            <td>{{ producto.nombre }}</td>
+                            <td>${{ producto.precio }}</td>
+                            <td>{{ producto.categoria }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4">No hay productos.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Consulta 2: Productos con nombre -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5>Buscar productos por nombre</h5>
+        </div>
+        <div class="card-body">
+            <form method="get" class="mb-3">
+                <div class="input-group">
+                    <input type="text" name="nombre_busqueda" class="form-control" placeholder="Ej: Laptop" value="{{ nombre_busqueda }}">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+            </form>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in productos_laptop %}
+                        <tr>
+                            <td>{{ producto.id }}</td>
+                            <td>{{ producto.nombre }}</td>
+                            <td>${{ producto.precio }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3">No hay productos con ese nombre.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Consulta 3: Productos de una categoría específica -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5>Productos por categoría</h5>
+        </div>
+        <div class="card-body">
+            <form method="get" class="mb-3">
+                <div class="input-group">
+                    <select name="categoria_id" class="form-select">
+                        <option value="">Selecciona una categoría</option>
+                        {% for categoria in categorias %}
+                        <option value="{{ categoria.id }}" {% if categoria_id == categoria.id|stringformat:"s" %}selected{% endif %}>{{ categoria.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                </div>
+            </form>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in productos_electronicos %}
+                        <tr>
+                            <td>{{ producto.id }}</td>
+                            <td>{{ producto.nombre }}</td>
+                            <td>${{ producto.precio }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3">No hay productos en esta categoría.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Consulta 4: Productos con precio mayor a un valor -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5>Productos con precio mayor a</h5>
+        </div>
+        <div class="card-body">
+            <form method="get" class="mb-3">
+                <div class="input-group">
+                    <input type="number" name="precio_minimo" class="form-control" placeholder="Ej: 100" value="{{ precio_minimo }}">
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                </div>
+            </form>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in productos_caros %}
+                        <tr>
+                            <td>{{ producto.id }}</td>
+                            <td>{{ producto.nombre }}</td>
+                            <td>${{ producto.precio }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3">No hay productos con precio mayor al especificado.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Consulta 5: Productos que no son de una categoría específica -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5>Productos que NO son de una categoría</h5>
+        </div>
+        <div class="card-body">
+            <form method="get" class="mb-3">
+                <div class="input-group">
+                    <select name="categoria_excluir_id" class="form-select">
+                        <option value="">Selecciona una categoría</option>
+                        {% for categoria in categorias %}
+                        <option value="{{ categoria.id }}" {% if categoria_excluir_id == categoria.id|stringformat:"s" %}selected{% endif %}>{{ categoria.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                </div>
+            </form>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Categoría</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in productos_no_electronicos %}
+                        <tr>
+                            <td>{{ producto.id }}</td>
+                            <td>{{ producto.nombre }}</td>
+                            <td>{{ producto.categoria }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3">Todos los productos son de la categoría seleccionada.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Consulta 6: Número de productos por categoría -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5>Número de productos por categoría</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Categoría</th>
+                            <th>Número de productos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for categoria in categorias_con_conteo %}
+                        <tr>
+                            <td>{{ categoria.nombre }}</td>
+                            <td>{{ categoria.num_productos }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="2">No hay categorías.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Consulta 7: Precio promedio por categoría -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5>Precio promedio por categoría</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Categoría</th>
+                            <th>Precio promedio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for categoria in categorias_con_promedio %}
+                        <tr>
+                            <td>{{ categoria.nombre }}</td>
+                            <td>${{ categoria.precio_promedio|floatformat:2 }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="2">No hay categorías.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Consulta 8: Productos con una etiqueta específica -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5>Productos por etiqueta</h5>
+        </div>
+        <div class="card-body">
+            <form method="get" class="mb-3">
+                <div class="input-group">
+                    <select name="etiqueta_id" class="form-select">
+                        <option value="">Selecciona una etiqueta</option>
+                        {% for etiqueta in etiquetas %}
+                        <option value="{{ etiqueta.id }}" {% if etiqueta_id == etiqueta.id|stringformat:"s" %}selected{% endif %}>{{ etiqueta.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                </div>
+            </form>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in productos_oferta %}
+                        <tr>
+                            <td>{{ producto.id }}</td>
+                            <td>{{ producto.nombre }}</td>
+                            <td>${{ producto.precio }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3">No hay productos con esa etiqueta.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Consulta SQL personalizada -->
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white">
+            <h5>Consulta SQL Personalizada: Productos con número de etiquetas</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Categoría</th>
+                            <th>Número de etiquetas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in productos_con_etiquetas %}
+                        <tr>
+                            <td>{{ producto.id }}</td>
+                            <td>{{ producto.nombre }}</td>
+                            <td>${{ producto.precio }}</td>
+                            <td>{{ producto.categoria }}</td>
+                            <td>{{ producto.num_etiquetas }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">No hay productos.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

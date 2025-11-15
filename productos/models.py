@@ -34,3 +34,12 @@ class Producto(models.Model):
     def __str__(self):
         return self.nombre
 
+class ProductoConEtiquetas(models.Model):
+    id = models.IntegerField(primary_key=True)
+    nombre = models.CharField(max_length=100)
+    precio = models.DecimalField(max_digits=10, decimal_places=2)
+    categoria = models.CharField(max_length=100)
+    num_etiquetas = models.IntegerField()
+
+    class Meta:
+        managed = False  # Indica a Django que no gestione la tabla en la base de datos
