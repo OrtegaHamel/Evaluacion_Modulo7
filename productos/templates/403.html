@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Acceso Denegado{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="alert alert-danger">
+        <h4 class="alert-heading">Acceso Denegado</h4>
+        <p>No tienes permiso para acceder a esta página.</p>
+    </div>
+    {% if request.META.HTTP_REFERER %}
+        <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-primary">Volver</a>
+    {% else %}
+        <a href="{% url 'index' %}" class="btn btn-primary">Volver al inicio</a>
+    {% endif %}
+</div>
+{% endblock %}
