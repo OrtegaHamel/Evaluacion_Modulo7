@@ -1,5 +1,7 @@
 # Gestión de Productos
 
+### Ejercicio M7_Evaluacion_Modulo del Bootcamp FullStack Python  
+
 Por Álvaro Ortega Hamel
 
 Aplicación web desarrollada en **Django** para administrar productos,
@@ -18,6 +20,8 @@ autenticación y roles preconfigurados.
 
 ## Lo que aprendí:
 Este proyecto fue clave para reforzar conceptos como arquitectura de proyectos Django y PostgreSQL, buenas prácticas de organización en backend, seguridad mediante permisos, y la importancia de documentar de forma clara para que otros (y uno mismo en el futuro) puedan entender y ejecutar el proyecto sin problemas.
+
+------------------------------------------------------------------------
 
 ## 📋 Requisitos Previos
 
@@ -118,7 +122,9 @@ http://127.0.0.1:8000/
     │   ├── admin.py
     │   ├── urls.py
     │   └── migrations/
+    ├── img/
     ├── manage.py
+    ├── Capturas.md    
     └── README.md
 
 ------------------------------------------------------------------------
