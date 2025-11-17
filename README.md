@@ -8,6 +8,17 @@ autenticación y roles preconfigurados.
 
 ------------------------------------------------------------------------
 
+## ¿Qué incluye este proyecto?
+
+-   Sistema de productos, categorías y etiquetas
+-   Gestión de permisos con grupos: usuarios normales, editores y superusuario
+-   Templates reutilizables y manejo de errores
+-   Migraciones y configuración completa del proyecto
+-   Entorno virtual, dependencias y estructura ordenada
+
+## Lo que aprendí:
+Este proyecto fue clave para reforzar conceptos como arquitectura de proyectos Django y PostgreSQL, buenas prácticas de organización en backend, seguridad mediante permisos, y la importancia de documentar de forma clara para que otros (y uno mismo en el futuro) puedan entender y ejecutar el proyecto sin problemas.
+
 ## 📋 Requisitos Previos
 
 -   Python 3.8+
@@ -65,11 +76,12 @@ http://127.0.0.1:8000/
 
 ## 👤 Usuarios Preconfigurados
 
-  Usuario           Contraseña      Grupo               Permisos
-  ----------------- --------------- ------------------- ---------------
-  root              root            Superusuario        Acceso total
-  administrador     contrasena123   Editores            CRUD completo
-  usuario_normal1   contrasena123   Usuarios normales   Solo lectura
+| Usuario            | Contraseña     | Grupo               | Permisos                                                                 |
+|--------------------|-----------------|---------------------|--------------------------------------------------------------------------|
+| root               | root            | Superusuario        | Todos los permisos                                                     |
+| administrador      | contrasena123  | Editores           | Permisos completos (CRUD) para Productos, Categorías y Etiquetas        |
+| usuario_normal1    | contrasena123  | Usuarios normales  | Solo puede ver listas de Productos, Categorías y Etiquetas             |
+
 
 ------------------------------------------------------------------------
 
